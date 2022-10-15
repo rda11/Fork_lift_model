@@ -1,0 +1,140 @@
+<?xml version='1.0'?>
+<robot name="my_bot">
+
+  <!-- Base Link -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0.3" rpy="0 0 0" />
+      <geometry>
+          <box size="0.55 0.55 0.7"/>
+      </geometry>
+      <material name="red">
+        <color rgba="1 0 0.2 1"/>
+      </material>
+    </visual>
+    <!-- Base collision -->
+    <collision>
+      <origin xyz="0 0 0.3" rpy="0 0 0" />
+      <geometry>
+          <box size="0.55 0.55 0.7"/>
+      </geometry>
+    </collision>
+
+    <!-- Caster -->
+    <visual name="caster">
+      <origin xyz="0.1 0 -0.075" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.08" />
+      </geometry>
+    </visual>
+    <!-- Caster collision -->
+    <collision>
+      <origin xyz="0.1 0 -0.075" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.08" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Right Wheel -->
+  <link name="right_wheel">
+    <visual>
+      <origin xyz="-0.005 0 0" rpy="1.570795 0 0" />
+      <geometry>
+          <cylinder length="0.1" radius="0.2" />
+      </geometry>
+      <material name="black">
+        <color rgba="0.05 0.05 0.05 1"/>
+      </material>
+    </visual>
+    <!-- Right Wheel collision -->
+    <collision>
+      <origin xyz="-0.005 0 0" rpy="1.570795 0 0" />
+      <geometry>
+          <cylinder length="0.1" radius="0.2" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Right Wheel joint -->
+  <joint name="joint_right_wheel" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_wheel"/>
+    <origin xyz="0 -0.325 0" rpy="0 0 0" /> 
+    <axis xyz="0 1 0" />
+  </joint>
+
+  <!-- Left Wheel -->
+  <link name="left_wheel">
+    <visual>
+      <origin xyz="-0.005 0 0" rpy="1.570795 0 0" />
+      <geometry>
+          <cylinder length="0.1" radius="0.2" />
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <!-- Left Wheel collision -->
+    <collision>
+      <origin xyz="-0.005 0 0" rpy="1.570795 0 0" />
+      <geometry>
+          <cylinder length="0.1" radius="0.2" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Left Wheel joint -->
+  <joint name="joint_left_wheel" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_wheel"/>
+    <origin xyz="0 0.325 0" rpy="0 0 0" /> 
+    <axis xyz="0 1 0" />
+  </joint>
+  
+  <!-- fork_left -->
+  <link name="fork_left">
+    <visual>
+      <origin xyz="-0.5 0.125 0.005" rpy="0 0 0" />
+      <geometry>
+         <box size="0.5 0.08 0.02" />
+      </geometry>
+      <material name="black">
+        <color rgba="0.05 0.05 0.05 1"/>
+      </material>
+    </visual>
+    <!-- fork collision -->
+    <collision>
+      <origin xyz="-0.5 0.125 0.005" rpy="0 0 0" />
+      <geometry>
+         <box size="0.5 0.08 0.02" />
+      </geometry>
+    </collision>
+    
+    <!-- fork_right -->
+    <visual>
+      <origin xyz="-0.5 -0.125 0.005" rpy="0 0 0" />
+      <geometry>
+         <box size="0.5 0.08 0.02" />
+      </geometry>
+      <material name="black">
+        <color rgba="0.05 0.05 0.05 1"/>
+      </material>
+    </visual>
+    <!-- fork collision -->
+    <collision>
+      <origin xyz="-0.5 -0.125 0.005" rpy="0 0 0" />
+      <geometry>
+         <box size="0.5 0.08 0.02" />
+      </geometry>
+    </collision>
+  </link>
+  
+  <!-- fork joint -->
+  <joint name="joint_fork" type="prismatic">
+    <parent link="base_link"/>
+    <child link="fork_left"/>
+    <origin xyz="0 0 0" rpy="0 0 0" /> 
+    <axis xyz="0 0 1" />
+    <limit lower="0" upper="0.25" velocity="100" effort="100"/>
+  </joint>
+
+</robot>
